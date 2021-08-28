@@ -1,3 +1,5 @@
+# SSG Blog with Markdown and Next.jx
+
 ## Local Development
 
 ```bash

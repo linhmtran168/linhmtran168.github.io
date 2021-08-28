@@ -3,7 +3,6 @@ import { useRouter } from 'next/dist/client/router';
 import ErrorPage from 'next/error';
 import { ParsedUrlQuery } from 'querystring';
 import Article from '../../components/article';
-import Layout from '../../components/layout';
 import { getAllArticles, getArticleBySlug } from '../../libs/api';
 import markdownToHtml from '../../libs/markdownToHtml';
 import ArticleType from '../../types/article';
@@ -18,7 +17,7 @@ export default function Post({ article }: Props): JSX.Element {
     return <ErrorPage statusCode={404} />;
   }
 
-  return <Layout>{router.isFallback ? <h1>Loading..</h1> : <Article article={article} />}</Layout>;
+  return router.isFallback ? <h1>Loading..</h1> : <Article article={article} />;
 }
 
 interface Params extends ParsedUrlQuery {

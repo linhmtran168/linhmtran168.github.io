@@ -1,4 +1,3 @@
-import Layout from '../components/layout';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import { getAllArticles } from '../libs/api';
@@ -11,7 +10,7 @@ type Props = {
 
 const Index = ({ articles }: Props): JSX.Element => {
   return (
-    <Layout>
+    <>
       <Head>
         <title>A Lazy Developer&lsquo;s blog</title>
       </Head>
@@ -30,7 +29,7 @@ const Index = ({ articles }: Props): JSX.Element => {
           ))}
         </ul>
       </div>
-    </Layout>
+    </>
   );
 };
 
