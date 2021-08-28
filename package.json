@@ -15,7 +15,7 @@
     "new-post": "./cli/newPost.ts -t"
   },
   "dependencies": {
-    "@mapbox/rehype-prism": "^0.6.0",
+    "@mapbox/rehype-prism": "^0.7.0",
     "date-fns": "^2.23.0",
     "disqus-react": "^1.1.2",
     "gray-matter": "^4.0.3",
