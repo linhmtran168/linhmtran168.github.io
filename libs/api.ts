@@ -21,8 +21,8 @@ function getArticleFileNames(): string[] {
 }
 
 function getArticleByFileName(fileName: string, slug: string[]): ArticleType {
-  const fullpath = path.join(articlesDir, fileName);
-  const fileContent = fs.readFileSync(fullpath, 'utf-8');
+  const fullPath = path.join(articlesDir, fileName);
+  const fileContent = fs.readFileSync(fullPath, 'utf-8');
   const { data, content } = matter(fileContent);
 
   const uri = slug.map(encodeURIComponent).join('/');
