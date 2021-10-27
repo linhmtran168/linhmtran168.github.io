@@ -2,7 +2,6 @@ import Wrapper from './wrapper';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { IconContext } from 'react-icons';
 
 const twitterId = process.env.NEXT_PUBLIC_TWITTER_ID;
 const githubId = process.env.NEXT_PUBLIC_GITHUB_ID;

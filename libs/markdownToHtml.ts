@@ -1,7 +1,7 @@
 import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import highlight from 'rehype-highlight';
-import unified from 'unified';
+import { unified } from 'unified';
 import html from 'rehype-stringify';
 import math from 'remark-math';
 import katex from 'rehype-katex';
