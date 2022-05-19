@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       </Layout>
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`} />
 
-      <Script>
+      <Script id="gtagSetup">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
