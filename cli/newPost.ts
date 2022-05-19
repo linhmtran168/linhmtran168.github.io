@@ -1,16 +1,21 @@
 #!/usr/bin/env ts-node-script
 import { format } from 'date-fns';
-import yargs from 'yargs';
+import yargs from 'yargs/yargs';
 import fs from 'fs';
 
-const options = yargs
-  .usage('Usage: -t <title> -cs <custom slug>')
-  .option('t', { alias: 'title', desc: 'Post title', type: 'string', demandOption: true })
-  .option('s', { alias: 'slug', desc: 'Custom slug for the post', type: 'string', demandOption: false }).argv;
+type CliOptions = { title: string, slug: string }
 
-const title = options.title as string;
+const options = yargs(process.argv.slice(2))
+  .usage('Usage: -t <title> -cs <custom slug>')
+  .option('title', { alias: 't', description: 'Post title', type: 'string'})
+  .option('slug', { alias: 'cs', description: 'Custom slug for the post', type: 'string'})
+  .demandOption(['title'])
+  .strict()
+  .parse() as CliOptions;
+
+const title = options.title;
 const postDate = format(new Date(), 'yyyy-mm-dd');
-let slug = options.slug as string;
+let slug = options.slug;
 
 if (!slug) {
   slug = title
