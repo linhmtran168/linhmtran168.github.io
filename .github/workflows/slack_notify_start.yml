@@ -1,0 +1,29 @@
+name: Notify Build Start
+
+on:
+  workflow_call:
+    inputs:
+      params:
+        description: 'Params for deployment'
+        required: true
+        type: string
+
+jobs:
+  notify-build-start:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: notify-deploy-start-slack
+        uses: slackapi/slack-github-action@v1.22.0
+        with:
+          payload: |
+            {
+              "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "run_id": "${{ github.run_id }}",
+              "status": "started",
+              "params": "${{ inputs.params }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    
