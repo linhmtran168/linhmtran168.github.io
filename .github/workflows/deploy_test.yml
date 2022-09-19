@@ -35,5 +35,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Test FAil
+      run: exit 1
+
     - name: Echo info
       run: echo "Deployed ${{ inputs.branch }} to ${{ inputs.environment }}"
