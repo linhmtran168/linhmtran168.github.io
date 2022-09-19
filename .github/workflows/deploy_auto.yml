@@ -14,7 +14,7 @@ jobs:
     outputs:
       to_deploy: ${{ steps.check_command.outputs.to_deploy }}
       env: ${{ steps.check_command.outputs.env }}
-      branch: ${{ steps.check_command.outputs.branch_name }}
+      branch: ${{ steps.get_branch_name.outputs.branch_name }}
     steps:
       - name: Check deploy command
         uses: actions/github-script@v5
