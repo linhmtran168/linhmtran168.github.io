@@ -1,20 +1,19 @@
-name: Test deployment
+name: Reusable workflow example
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       branch:
         description: 'Branch to deploy'
         required: true
-        default: 'master'
+        type: string
       environment:
         description: 'Environment to deploy to'
         required: true
-        default: 'dev'
+        type: string
 
 jobs:
-  build:
-
+  deploy-test:
     runs-on: ubuntu-latest
 
     strategy:
