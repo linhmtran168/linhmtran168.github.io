@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/shared/deploy_test.yml@master
+    uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
     with:
       branch: ${{ inputs.branch }}
       environment: ${{ inputs.environment }}
