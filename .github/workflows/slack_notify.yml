@@ -1,10 +1,14 @@
-name: Notify Build Start
+name: Slack Notify
 
 on:
   workflow_call:
     inputs:
       params:
         description: 'Params for deployment'
+        required: true
+        type: string
+      state:
+        description: 'State of deployment'
         required: true
         type: string
 
@@ -21,7 +25,7 @@ jobs:
             {
               "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
               "run_id": "${{ github.run_id }}",
-              "state": "started",
+              "state": "${{ inputs.state }},
               "params": "${{ inputs.params }}"
             }
         env:
