@@ -1,4 +1,4 @@
-name: Test deployment
+name: Manually deployment
 
 on:
   workflow_dispatch:
