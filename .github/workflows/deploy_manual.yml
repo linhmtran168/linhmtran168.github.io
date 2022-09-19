@@ -7,12 +7,24 @@ on:
         description: 'Branch to deploy'
         required: true
         default: 'master'
+        type: string
       environment:
         description: 'Environment to deploy to'
         required: true
-        default: 'dev'
+        default: qa1
+        type: choice
+        options: 
+        - qa1
+        - qa2
+        - qa3
 
 jobs:
+  notify-start:
+    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify_start.yml@master
+    with:
+      params: "Branch: ${{ inputs.branch }}, Environment: ${{ inputs.environment }}"
+    secrets: inherit
+
   deploy:
     uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
     with:

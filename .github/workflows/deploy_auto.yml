@@ -62,6 +62,13 @@ jobs:
               core.setFailed(`Request failed with error ${err}`)
             }
 
+  notify-start:
+    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify_start.yml@master
+    needs: get_inputs
+    with:
+      params: "Branch: ${{ needs.get_inputs.outputs.branch }}, Environment: ${{ needs.get_inputs.outputs.env }}"
+    secrets: inherit
+
   deploy:
     uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
     needs: get_inputs
