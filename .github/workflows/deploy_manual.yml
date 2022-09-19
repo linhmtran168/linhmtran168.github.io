@@ -22,11 +22,12 @@ jobs:
   notify-start:
     uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify_start.yml@master
     with:
-      params: "Branch: ${{ inputs.branch }}, Environment: ${{ inputs.environment }}"
+      params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
     secrets: inherit
 
   deploy:
     uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
+    needs: notify-start
     with:
       branch: ${{ inputs.branch }}
       environment: ${{ inputs.environment }}
