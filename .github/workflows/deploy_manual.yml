@@ -36,6 +36,7 @@ jobs:
 
   notify-failed:
     if: failure()
+    needs: deploy
     uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
     with:
       params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
@@ -44,6 +45,7 @@ jobs:
 
   notify-success:
     if: success()
+    needs: deploy
     uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
     with:
       params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
