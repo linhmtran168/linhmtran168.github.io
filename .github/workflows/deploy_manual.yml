@@ -20,15 +20,34 @@ on:
 
 jobs:
   notify-start:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify_start.yml@master
+    uses: ./.github/workflows/slack_notify.yml
     with:
       params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
+      state: STARTED
     secrets: inherit
 
   deploy:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
+    uses: ./.github/workflows/deploy_test.yml
     needs: notify-start
     with:
       branch: ${{ inputs.branch }}
       environment: ${{ inputs.environment }}
+    secrets: inherit
+
+  notify-failed:
+    if: failure()
+    needs: deploy
+    uses: ./.github/workflows/slack_notify.yml
+    with:
+      params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
+      state: FAILED
+    secrets: inherit
+
+  notify-success:
+    if: success()
+    needs: deploy
+    uses: ./.github/workflows/slack_notify.yml
+    with:
+      params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
+      state: SUCCEEDED
     secrets: inherit

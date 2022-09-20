@@ -63,14 +63,15 @@ jobs:
             }
 
   notify-start:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify_start.yml@master
+    uses: ./.github/workflows/slack_notify.yml
     needs: get_inputs
     with:
       params: "Branch: ${{ needs.get_inputs.outputs.branch }}, Environment: ${{ needs.get_inputs.outputs.env }}"
+      state: STARTED
     secrets: inherit
 
   deploy:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
+    uses: ./.github/workflows/deploy_test.yml
     needs: notify-start
     name: Deploy
     with:
@@ -78,20 +79,18 @@ jobs:
       environment: ${{ needs.get_inputs.outputs.env }}
     secrets: inherit
 
-  notify:
-    runs-on: ubuntu-latest
-    needs: deploy
-    name: Notify
-    steps:
-      - name: Create reaction comment
-        uses: actions/github-script@v6
-        id: check_command
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            await github.rest.reactions.createForIssueComment({
-              owner,
-              repo,
-              comment_id: context.payload.comment.id,
-              content: 'rocket'
-            });
+  notify-failed:
+    if: failure()
+    uses: ./.github/workflows/slack_notify.yml
+    with:
+      params: "Branch: ${{ needs.get_inputs.outputs.branch }}, Environment: ${{ needs.get_inputs.outputs.env }}"
+      state: FAILED
+    secrets: inherit
+
+  notify-success:
+    if: success()
+    uses: ./.github/workflows/slack_notify.yml
+    with:
+      params: "Branch: ${{ needs.get_inputs.outputs.branch }}, Environment: ${{ needs.get_inputs.outputs.env }}"
+      state: SUCCEEDED
+    secrets: inherit

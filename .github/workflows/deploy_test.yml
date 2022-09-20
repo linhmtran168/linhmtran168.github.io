@@ -1,4 +1,4 @@
-name: Reusable workflow example
+name: Real deploy
 
 on:
   workflow_call:
@@ -34,6 +34,9 @@ jobs:
       uses: actions/setup-node@v3.2.0
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Test FAil
+      run: exit 1
 
     - name: Echo info
       run: echo "Deployed ${{ inputs.branch }} to ${{ inputs.environment }}"
