@@ -37,7 +37,7 @@ jobs:
   notify-failed:
     if: failure()
     needs: deploy
-    uses: /.github/workflows/slack_notify.yml
+    uses: ./.github/workflows/slack_notify.yml
     with:
       params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
       state: FAILED

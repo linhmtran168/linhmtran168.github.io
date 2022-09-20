@@ -1,4 +1,4 @@
-name: Reusable workflow example
+name: Real deploy
 
 on:
   workflow_call:
