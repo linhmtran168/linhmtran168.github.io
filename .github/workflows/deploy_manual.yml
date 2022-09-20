@@ -20,14 +20,14 @@ on:
 
 jobs:
   notify-start:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
+    uses: ./.github/workflows/slack_notify.yml
     with:
       params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
       state: STARTED
     secrets: inherit
 
   deploy:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
+    uses: ./.github/workflows/deploy_test.yml
     needs: notify-start
     with:
       branch: ${{ inputs.branch }}
@@ -37,7 +37,7 @@ jobs:
   notify-failed:
     if: failure()
     needs: deploy
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
+    uses: /.github/workflows/slack_notify.yml
     with:
       params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
       state: FAILED
@@ -46,7 +46,7 @@ jobs:
   notify-success:
     if: success()
     needs: deploy
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
+    uses: ./.github/workflows/slack_notify.yml
     with:
       params: "Branch: ${{ inputs.branch }}, Env: ${{ inputs.environment }}"
       state: SUCCEEDED

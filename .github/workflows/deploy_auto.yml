@@ -63,7 +63,7 @@ jobs:
             }
 
   notify-start:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
+    uses: ./.github/workflows/slack_notify.yml
     needs: get_inputs
     with:
       params: "Branch: ${{ needs.get_inputs.outputs.branch }}, Environment: ${{ needs.get_inputs.outputs.env }}"
@@ -71,7 +71,7 @@ jobs:
     secrets: inherit
 
   deploy:
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/deploy_test.yml@master
+    uses: ./.github/workflows/deploy_test.yml
     needs: notify-start
     name: Deploy
     with:
@@ -81,7 +81,7 @@ jobs:
 
   notify-failed:
     if: failure()
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
+    uses: ./.github/workflows/slack_notify.yml
     with:
       params: "Branch: ${{ needs.get_inputs.outputs.branch }}, Environment: ${{ needs.get_inputs.outputs.env }}"
       state: FAILED
@@ -89,7 +89,7 @@ jobs:
 
   notify-success:
     if: success()
-    uses: linhmtran168/linhmtran168.github.io/.github/workflows/slack_notify.yml@master
+    uses: ./.github/workflows/slack_notify.yml
     with:
       params: "Branch: ${{ needs.get_inputs.outputs.branch }}, Environment: ${{ needs.get_inputs.outputs.env }}"
       state: SUCCEEDED
