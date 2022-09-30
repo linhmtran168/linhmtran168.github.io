@@ -4,7 +4,7 @@ import ErrorPage from 'next/error';
 import { ParsedUrlQuery } from 'querystring';
 import Article from '../../components/article';
 import { getAllArticles, getArticleBySlug } from '../../libs/api';
-import markdownToHtml from '../../libs/markdownToHtml';
+import convertMdx from '../../libs/convertMdx';
 import ArticleType from '../../types/article';
 
 type Props = {
@@ -27,7 +27,7 @@ interface Params extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as Params;
   const article = getArticleBySlug(params.slug);
-  const content = await markdownToHtml(article.content!);
+  const content = await convertMdx(article.content!);
 
   return {
     props: {
