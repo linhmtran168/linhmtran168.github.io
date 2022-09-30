@@ -1,5 +1,7 @@
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect, Fragment } from 'react';
+import { run } from '@mdx-js/mdx';
+import * as runtime from 'react/jsx-runtime';
 import ArticleType from '../types/article';
 import articleStyle from './article.module.css';
 import { DiscussionEmbed } from 'disqus-react';
@@ -19,6 +21,15 @@ const Article = ({ children, article }: ArticleProp): JSX.Element => {
     identifier: pageUri
   };
 
+  const [mdxModule, setMdxModule] = useState<any>();
+  const Content = mdxModule ? mdxModule.default : Fragment;
+
+  useEffect(() => {
+    (async () => {
+      setMdxModule(await run(article.content!, runtime));
+    })();
+  }, [article.content]);
+
   return (
     <article className="w-full">
       <Head>
@@ -32,7 +43,9 @@ const Article = ({ children, article }: ArticleProp): JSX.Element => {
         {children ? (
           children
         ) : (
-          <div className={articleStyle['markdown']} dangerouslySetInnerHTML={{ __html: article.content! }}></div>
+          <div className={articleStyle['markdown']}>
+            <Content />
+          </div>
         )}
 
         <div className="mt-12 border-t layout-separator pt-1">
