@@ -2,7 +2,7 @@ name: "Test Webhook"
 
 on:
   repository_dispatch:
-    types: [content_overload]
+    types: [content_overload,content_overload2]
 
 jobs:
   parse-env:
@@ -17,7 +17,7 @@ jobs:
           EVENT_TYPE: ${{ github.event.action }}
         run: |
           TYPE_ARR=(${EVENT_TYPE//_/ })
-          echo "::set-output name=env::$TYPE_ARR[1]"
+          echo "::set-output name=env::${TYPE_ARR[1]}"
 
   next-job:
     runs-on: ubuntu-latest
