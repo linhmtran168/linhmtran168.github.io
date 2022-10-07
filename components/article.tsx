@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import { ReactNode, useState, useEffect, Fragment } from 'react';
-import { run } from '@mdx-js/mdx';
-import * as runtime from 'react/jsx-runtime';
+import { ReactNode } from 'react';
 import ArticleType from '../types/article';
 import articleStyle from './article.module.css';
 import { DiscussionEmbed } from 'disqus-react';
+import { MDXRemote } from 'next-mdx-remote';
 import 'highlight.js/styles/github.css';
 import 'katex/dist/katex.css';
 
@@ -21,15 +20,6 @@ const Article = ({ children, article }: ArticleProp): JSX.Element => {
     identifier: pageUri
   };
 
-  const [mdxModule, setMdxModule] = useState<any>();
-  const Content = mdxModule ? mdxModule.default : Fragment;
-
-  useEffect(() => {
-    (async () => {
-      setMdxModule(await run(article.content!, runtime));
-    })();
-  }, [article.content]);
-
   return (
     <article className="w-full">
       <Head>
@@ -38,13 +28,14 @@ const Article = ({ children, article }: ArticleProp): JSX.Element => {
       <div className="flex-col">
         <div className="border-b layout-separator pb-1 flex flex-row items-baseline justify-between">
           <p className="text-3xl">{article.title}</p>
-          {article.updatedTime && <p className="italic font-thin">{article.updatedTime}</p>}
+          {article.date && <p className="italic font-thin">{article.date}</p>}
         </div>
+
         {children ? (
           children
         ) : (
           <div className={articleStyle['markdown']}>
-            <Content />
+            <MDXRemote {...article.content!} />
           </div>
         )}
 

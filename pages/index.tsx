@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
-import { getAllArticles } from '../libs/api';
+import { getAllArticleMetas } from '../libs/api';
 import ArticleType from '../types/article';
 import Link from 'next/link';
 
@@ -24,7 +24,7 @@ const Index = ({ articles }: Props): JSX.Element => {
                   <h2>{ale.title}</h2>
                 </a>
               </Link>
-              <p className="text-sm italic leading-loose text-opacity-90">{ale.updatedTime}</p>
+              <p className="text-sm italic leading-loose text-opacity-90">{ale.date}</p>
             </li>
           ))}
         </ul>
@@ -34,7 +34,7 @@ const Index = ({ articles }: Props): JSX.Element => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = getAllArticles();
+  const articles = await getAllArticleMetas();
 
   return {
     props: { articles }

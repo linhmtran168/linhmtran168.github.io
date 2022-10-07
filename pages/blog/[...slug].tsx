@@ -3,8 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import ErrorPage from 'next/error';
 import { ParsedUrlQuery } from 'querystring';
 import Article from '../../components/article';
-import { getAllArticles, getArticleBySlug } from '../../libs/api';
-import convertMdx from '../../libs/convertMdx';
+import { getAllArticleSlugs, getArticleBySlug } from '../../libs/api';
 import ArticleType from '../../types/article';
 
 type Props = {
@@ -26,30 +25,18 @@ interface Params extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as Params;
-  const article = getArticleBySlug(params.slug);
-  const content = await convertMdx(article.content!);
+  const article = await getArticleBySlug(params.slug);
 
   return {
-    props: {
-      article: {
-        ...article,
-        content
-      }
-    }
+    props: { article }
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getAllArticles();
+  const paths = getAllArticleSlugs().map((slug) => ({ params: { slug } }));
 
   return {
-    paths: posts.map((p) => {
-      return {
-        params: {
-          slug: p.slug
-        }
-      };
-    }),
+    paths,
     fallback: false
   };
 };

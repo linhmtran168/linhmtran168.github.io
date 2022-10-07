@@ -1,17 +1,20 @@
 import rehypeHighlight from 'rehype-highlight';
-import { compile } from '@mdx-js/mdx';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import remarkGfm from 'remark-gfm';
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
-export default async function convertMdx(rawContent: string): Promise<string> {
-  return String(
-    await compile(rawContent, {
-      outputFormat: 'function-body',
-      remarkPlugins: [remarkGfm, remarkMath, remarkFrontmatter, remarkMdxFrontmatter],
-      rehypePlugins: [rehypeKatex, rehypeHighlight]
-    })
-  );
+export default async function convertMdx(rawContent: string): Promise<MDXRemoteSerializeResult> {
+  return await serialize(
+    rawContent,
+    {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm, remarkMath],
+        rehypePlugins: [rehypeKatex, rehypeHighlight],
+        format: 'mdx',
+      },
+      parseFrontmatter: true
+    }
+  )
 }

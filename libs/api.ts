@@ -1,42 +1,47 @@
 import fs from 'fs';
-import matter from 'gray-matter';
 import path from 'path';
 import ArticleType from '../types/article';
-import { format } from 'date-fns';
+import { parseISO, format } from 'date-fns';
+import convertMdx from './convertMdx';
 
 const articlesDir = path.join(process.cwd(), '_posts');
 
 function getArticleSlug(fileName: string): string[] {
-  const name = fileName.slice(0, -3);
-  const re = /^(\d{4})-(\d{2})-(\d{2})-([a-z0-9\\-]+)$/;
-
-  const matches = name.match(re);
-
+  const re = /^(\d{4})-(\d{2})-(\d{2})-([a-z0-9\\-]+)\.mdx$/;
+  const matches = fileName.match(re);
   return matches ? matches.slice(1) : [];
 }
 
-function getArticleFileNames(): string[] {
-  const fileNames = fs.readdirSync(articlesDir);
-  return fileNames ? fileNames : [];
+export function getAllArticleSlugs(): string[][] {
+  return fs
+    .readdirSync(articlesDir)
+    .sort((a, b) => (a < b ? 1 : -1))
+    .map(getArticleSlug);
 }
 
-function getArticleByFileName(fileName: string, slug: string[]): ArticleType {
+export async function getArticleBySlug(slug: string[], excludeContent: boolean = false): Promise<ArticleType> {
+  const fileName = `${slug.join('-')}.mdx`; 
   const fullPath = path.join(articlesDir, fileName);
-  const fileContent = fs.readFileSync(fullPath, 'utf-8');
-  const { data, content } = matter(fileContent);
-
+  const content = await convertMdx(fs.readFileSync(fullPath, 'utf-8'));
   const uri = slug.map(encodeURIComponent).join('/');
-  return { title: data.title, slug, uri, updatedTime: format(data.date, 'yyyy/MM/dd'), content: content };
+
+  const article: ArticleType = {
+    title: content.frontmatter!.title,
+    slug,
+    uri,
+    date: format(parseISO(content.frontmatter!.date), 'yyyy/MM/dd'),
+  };
+
+  if (!excludeContent) {
+    article.content = content;
+  }
+
+  return article;
 }
 
-export function getArticleBySlug(slug: string[]): ArticleType {
-  const fileName = slug.join('-');
-  return getArticleByFileName(fileName + '.md', slug);
-}
-
-export function getAllArticles(): ArticleType[] {
-  const fileNames = getArticleFileNames();
-  return fileNames
-    .map((fileName) => getArticleByFileName(fileName, getArticleSlug(fileName)))
-    .sort((a1, a2) => (a1.updatedTime! > a2.updatedTime! ? -1 : 1));
+export async function getAllArticleMetas(): Promise<ArticleType[]> {
+  const articles = await Promise.all(
+    getAllArticleSlugs().map((slug) => getArticleBySlug(slug, true))
+  );
+  return articles.sort((a1, a2) => (a1.date! > a2.date! ? -1 : 1));
 }
