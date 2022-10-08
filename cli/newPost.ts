@@ -27,7 +27,7 @@ if (!slug) {
 const postContent = `---
 layout: post
 title: ${title} 
-date: ${postDate}
+date: "${postDate}"
 ---
 `;
 
