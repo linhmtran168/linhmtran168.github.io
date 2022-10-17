@@ -22,18 +22,18 @@ export function getAllArticleSlugs(): string[][] {
 export async function getArticleBySlug(slug: string[], excludeContent: boolean = false): Promise<ArticleType> {
   const fileName = `${slug.join('-')}.mdx`; 
   const fullPath = path.join(articlesDir, fileName);
-  const content = await convertMdx(fs.readFileSync(fullPath, 'utf-8'));
+  const { frontmatter, code } = await convertMdx(fs.readFileSync(fullPath, 'utf-8'));
   const uri = slug.map(encodeURIComponent).join('/');
 
   const article: ArticleType = {
-    title: content.frontmatter!.title,
+    title: frontmatter!.title,
     slug,
     uri,
-    date: format(parseISO(content.frontmatter!.date), 'yyyy/MM/dd'),
+    date: format(parseISO(frontmatter!.date), 'yyyy/MM/dd'),
   };
 
   if (!excludeContent) {
-    article.content = content;
+    article.content = code;
   }
 
   return article;

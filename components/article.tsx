@@ -1,11 +1,9 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
+import * as React from 'react';
 import ArticleType from '../types/article';
-import articleStyle from './article.module.css';
 import { DiscussionEmbed } from 'disqus-react';
-import { MDXRemote } from 'next-mdx-remote';
-import 'highlight.js/styles/github.css';
-import 'katex/dist/katex.css';
+import ArticleContent from './articleContent';
 
 type ArticleProp = {
   children?: ReactNode;
@@ -31,13 +29,7 @@ const Article = ({ children, article }: ArticleProp): JSX.Element => {
           {article.date && <p className="italic font-thin">{article.date}</p>}
         </div>
 
-        {children ? (
-          children
-        ) : (
-          <div className={articleStyle['markdown']}>
-            <MDXRemote {...article.content!} />
-          </div>
-        )}
+        {children ? children : <ArticleContent content={article.content!} />}
 
         <div className="mt-12 border-t layout-separator pt-1">
           <DiscussionEmbed shortname={process.env.NEXT_PUBLIC_DISQUS_SHORTNAME!} config={disqusConf} />
