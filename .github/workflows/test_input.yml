@@ -6,7 +6,7 @@ on:
       branch:
         description: 'Branch to deploy'
         required: true
-        default: 'main'
+        default: master
         type: string
       environment:
         description: 'Environment to deploy to'
@@ -16,9 +16,7 @@ on:
         options: [qa1, qa2, qa3]
 
 jobs:
-
   notify:
-    needs: deploy
     uses: ./.github/workflows/notify.yml
     with:
       params: 'branch: ${{ inputs.branch }}, env: ${{ inputs.environment }}'
