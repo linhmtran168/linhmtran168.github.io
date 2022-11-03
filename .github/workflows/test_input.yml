@@ -1,0 +1,25 @@
+name: '[QA] Manually Deploy'
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'
+        type: string
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: qa1
+        type: choice
+        options: [qa1, qa2, qa3]
+
+jobs:
+
+  notify:
+    needs: deploy
+    uses: ./.github/workflows/notify.yml
+    with:
+      params: 'branch: ${{ inputs.branch }}, env: ${{ inputs.environment }}'
+    secrets: inherit
