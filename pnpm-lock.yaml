@@ -33,7 +33,7 @@ specifiers:
   postcss-preset-env: ^7.8.2
   prettier: ^2.7.1
   react: ^18.2.0
-  react-chartjs-2: ^4.3.1
+  react-chartjs-2: ^5.0.0
   react-dom: ^18.2.0
   react-test-renderer: ^18.2.0
   rehype-highlight: ^6.0.0
@@ -58,7 +58,7 @@ dependencies:
   mdx-bundler: 9.0.1_esbuild@0.15.11
   next: 13.0.0_6tziyx3dehkoeijunclpkpolha
   react: 18.2.0
-  react-chartjs-2: 4.3.1_2unjvz6v6rskedwoxtmbfw2rje
+  react-chartjs-2: 5.0.1_2unjvz6v6rskedwoxtmbfw2rje
   react-dom: 18.2.0_react@18.2.0
   rehype-highlight: 6.0.0
   rehype-katex: 6.0.2
@@ -5581,10 +5581,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /react-chartjs-2/4.3.1_2unjvz6v6rskedwoxtmbfw2rje:
-    resolution: {integrity: sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA==}
+  /react-chartjs-2/5.0.1_2unjvz6v6rskedwoxtmbfw2rje:
+    resolution: {integrity: sha512-u38C9OxynlNCBp+79grgXRs7DSJ9w8FuQ5/HO5FbYBbri8HSZW+9SWgjVshLkbXBfXnMGWakbHEtvN0nL2UG7Q==}
     peerDependencies:
-      chart.js: ^3.5.0
+      chart.js: ^4.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       chart.js: 3.9.1
