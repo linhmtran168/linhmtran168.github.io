@@ -13,7 +13,7 @@ specifiers:
   '@types/yargs': ^17.0.13
   autoprefixer: ^10.3.3
   babel-jest: ^29.1.0
-  chart.js: ^3.9.1
+  chart.js: ^4.0.0
   date-fns: ^2.29.3
   disqus-react: ^1.1.5
   esbuild: ^0.15.11
@@ -50,7 +50,7 @@ dependencies:
   '@fortawesome/free-brands-svg-icons': 6.2.0
   '@fortawesome/free-solid-svg-icons': 6.2.0
   '@fortawesome/react-fontawesome': 0.2.0_6j2wdqxompc6mcokhxkpep2gqu
-  chart.js: 3.9.1
+  chart.js: 4.0.1
   date-fns: 2.29.3
   disqus-react: 1.1.5_biqbaboplfbrettd7655fr4n2y
   esbuild: 0.15.11
@@ -58,7 +58,7 @@ dependencies:
   mdx-bundler: 9.0.1_esbuild@0.15.11
   next: 13.0.0_6tziyx3dehkoeijunclpkpolha
   react: 18.2.0
-  react-chartjs-2: 4.3.1_2unjvz6v6rskedwoxtmbfw2rje
+  react-chartjs-2: 4.3.1_mdhqntb7qznawtkbfweh7f2mzm
   react-dom: 18.2.0_react@18.2.0
   rehype-highlight: 6.0.0
   rehype-katex: 6.0.2
@@ -1895,8 +1895,9 @@ packages:
     resolution: {integrity: sha512-iBZ4F4wRbyORVsu0jPV7gXkOsGYjGHPmAyv+HiHG8gi5PtC9KI2j1+v8/tlibRvjoWX027ypmG/n0HtO5t7unw==}
     dev: false
 
-  /chart.js/3.9.1:
-    resolution: {integrity: sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==}
+  /chart.js/4.0.1:
+    resolution: {integrity: sha512-5/8/9eBivwBZK81mKvmIwTb2Pmw4D/5h1RK9fBWZLLZ8mCJ+kfYNmV9rMrGoa5Hgy2/wVDBMLSUDudul2/9ihA==}
+    engines: {pnpm: ^7.0.0}
     dev: false
 
   /chokidar/3.5.3:
@@ -5581,13 +5582,13 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /react-chartjs-2/4.3.1_2unjvz6v6rskedwoxtmbfw2rje:
+  /react-chartjs-2/4.3.1_mdhqntb7qznawtkbfweh7f2mzm:
     resolution: {integrity: sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA==}
     peerDependencies:
       chart.js: ^3.5.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      chart.js: 3.9.1
+      chart.js: 4.0.1
       react: 18.2.0
     dev: false
 
