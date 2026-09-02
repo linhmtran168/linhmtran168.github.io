@@ -31,7 +31,7 @@ specifiers:
   postcss-flexbugs-fixes: ^5.0.2
   postcss-import: ^15.0.0
   postcss-preset-env: ^7.8.2
-  prettier: ^2.7.1
+  prettier: ^3.0.0
   react: ^18.2.0
   react-chartjs-2: ^4.3.1
   react-dom: ^18.2.0
@@ -86,7 +86,7 @@ devDependencies:
   postcss-flexbugs-fixes: 5.0.2_postcss@8.5.23
   postcss-import: 15.0.0_postcss@8.5.23
   postcss-preset-env: 7.8.2_postcss@8.5.23
-  prettier: 2.7.1
+  prettier: 3.9.6
   react-test-renderer: 18.2.0_react@18.2.0
   tailwindcss: 3.1.8_gkjtwyl2bzmkceqf6pdf54ddji
   typescript: 4.8.4
@@ -5564,9 +5564,9 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier/2.7.1:
-    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
-    engines: {node: '>=10.13.0'}
+  /prettier/3.9.6:
+    resolution: {integrity: sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
